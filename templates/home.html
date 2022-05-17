@@ -1,0 +1,122 @@
+
+<html lang="en">
+<head>
+    <style>
+        body{
+        height:100%;
+        }
+    .title{
+        height:20%;
+        background-image:linear-gradient(to right,#ffffff,#006172,#ffffff);
+        text-align:center;
+        }
+    .title h1{
+        color:#ffffff;
+        }
+    .title .button{
+        width:100px;
+        height:25px;
+        }
+    .title button:hover{
+        cursor:pointer;
+        }
+    .posts-div{
+
+        }
+    .myList li{
+        position:relative;
+        border:2px solid #006172;
+        margin-left:10%;
+        width:80%;
+        height:150px;
+        border-radius:25px;
+        margin-top:5px;
+        }
+    .myList li label{
+        width:auto;
+        font-size:25px;
+        margin-left:2%;
+        color:#000080;
+        border:1px solid #000080;
+        border-radius:10px;
+        margin-top:10%;
+        }
+    .myList li button{
+        border-radius:100%;
+        }
+    .myList li button:hover{
+        background-color:red;
+        }
+    .myList li button:active{
+        background-color:red;
+        }
+
+    .myList li p{
+        font-family:Lucida Handwriting;
+        }
+    .post_div{
+        text-align:center;
+        }
+    </style>
+
+</head>
+<body onload="show_posts({{posts}})">
+<form method="post">
+    <div class="title">
+        <h1>TOP FEELS</h1>
+        <br>
+        <button name="page" value="home">HOME</button>
+        <button name="page" value="day">TYPE TODAY</button>
+        <button name="page" value="profile">PROFILE</button>
+
+
+    </div>
+
+<div class="posts-div">
+    <ol id="myList" class="myList">
+
+    </ol>
+</div>
+</form>
+</body>
+<script>
+function show_posts(l){
+    var i;
+    for(i=0;i<l.length;i++){
+    const node = document.createElement("li");
+    const divnode=document.createElement("div");
+
+    const usernode=document.createElement("label");
+    const usertext=document.createTextNode(l[i][0]);
+    usernode.appendChild(usertext);
+    divnode.appendChild(usernode);
+
+    divnode.appendChild(document.createElement("br"));
+
+    const post_div=document.createElement("div");
+    post_div.classList.add("post_div");
+    const post_matter=document.createElement("p");
+    const textnode = document.createTextNode(l[i][2]);
+    post_matter.appendChild(textnode);
+    post_div.appendChild(post_matter);
+    divnode.appendChild(post_div);
+
+    divnode.appendChild(document.createElement("br"));
+
+    const btn=document.createElement("button");
+    btn.name="like";
+    btn.value=l[i][1];
+    btn.innerHTML = "like";
+    divnode.appendChild(btn);
+
+    const likenode=document.createTextNode(l[i][3]);
+    divnode.appendChild(likenode);
+
+
+
+    node.appendChild(divnode);
+    document.getElementById("myList").appendChild(node);
+    }
+}
+</script>
+</html>

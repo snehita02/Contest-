@@ -1,0 +1,164 @@
+
+<html>
+<head>
+<style>
+    body{
+        height:100%;
+        }
+    .title{
+        height:20%;
+        background-image:linear-gradient(to right,#ffffff,#006172,#ffffff);
+        text-align:center;
+        }
+    .title h1{
+        color:#ffffff;
+        }
+    .login_box{
+        position:absolute;
+        font-family: "Times New Roman", Times, serif;
+        margin-right:30%;
+        margin-top:20%;
+        margin-left:35%;
+        margin-bottom:50%;
+        text-align:center;
+
+        }
+    .login_box button{
+        border-radius:10px;
+        border-color:#006172;
+        }
+    .login_box button:hover{
+        cursor:pointer;
+        }
+    .tab{
+
+        position:relative;
+        height:40%;
+        width:40%;
+        background-color:#ffffff;
+        border:1px solid #ccc;
+        border-radius:5px;
+        box-shadow: 3px 3px gray;
+        margin-right:30%;
+        margin-top:20%;
+        margin-left:35%;
+        margin-bottom:50%;
+        }
+    .tablinks{
+
+        }
+    .tab-links .button{
+        width:49%;
+        border:none;
+        background-color:#ccc;
+        }
+    .tab-links button:hover{
+        background-color:#ffffff;
+        }
+    .tab-links button:active{
+        background-color:#ffffff;
+        }
+    .tab-content{
+        position:relative;
+        margin-top:17%;
+        text-align:center;
+        display:none;
+        }
+
+
+</style>
+</head>
+<body onload="popup(get_flashed_messages())">
+
+{% block content %}
+    {% with messeges= get_flashed_messages() %}
+        {% if messeges %}
+            {% for msg in messeges %}
+                popup({{msg}})
+            {% endfor %}
+        {% endif%}
+    {% endwith %}
+{% endblock%}
+<div class="title">
+    <h1>WELCOME MAWA</h1>
+</div>
+
+<div class="login_box">
+    <h2>
+          Start sharing
+          what you feel
+             with our
+        enthusiastic fellows
+    </h2>
+    <button>Lets Write</button>
+</div>
+<div class="tab">
+    <div class="tab-links">
+        <button class="button" id="login_tab" onclick="opentab(event,'login')">login</button>
+        <button class="button" id="signup_tab" onclick="opentab(event,'signup')">signup</button>
+    </div>
+    <form method="POST">
+        {{login.hidden_tag()}}
+        <div class="tab-content" id="login">
+            {{login.userid.label()}}
+            <br>
+            <br>
+            {{login.userid()}}
+            <br>
+            <br>
+            {{login.passwd.label()}}
+            <br>
+            <br>
+            {{login.passwd()}}
+            <br>
+            <br>
+            <button type="submit" name="submit" value="pressed_login">Login</button>
+            <br>
+        </div>
+    </form>
+    <form method="POST">
+        {{signup.hidden_tag()}}
+        <div class="tab-content" id="signup">
+            {{signup.userid.label()}}
+            <br>
+            <br>
+            {{signup.userid()}}
+            <br>
+            <br>
+            {{signup.passwd.label()}}
+            <br>
+            <br>
+            {{signup.passwd()}}
+            <br>
+            <br>
+            <button type="submit" name="submit" value="pressed_signup">Signup</button>
+            <br>
+        </div>
+
+    </form>
+</div>
+</body>
+<script type="text/javascript" >
+    function opentab(evt,tabname){
+    var i,tabcontent,tablinks;
+            tabcontent=document.getElementsByClassName("tab-content");
+            for(i=0;i<tabcontent.length;i++){
+                tabcontent[i].style.display="none";
+            }
+            tablinks=document.getElementsByClassName("button");
+            for(i=0;i<tablinks.length;i++){
+                tablinks[i].className=tablinks[i].className.replace(" active", "")
+            }
+            document.getElementById(tabname).style.display="block";
+            evt.currentTarget.className += " active";
+}
+
+function popup(msg){
+if(msg){
+    console.log(msg);
+    alert(msg);
+    }
+}
+</script>
+
+</html>
